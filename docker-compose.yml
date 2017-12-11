@@ -1,0 +1,55 @@
+version: "3.4"
+services:
+  editor:
+    image: dtlfair/editor
+    ports:
+      - "127.0.0.1:8001:80"
+    restart: unless-stopped
+    volumes:
+      - /data/apps/editor/config:/usr/share/nginx/html/conf
+
+  fairifier:
+    image: dtlfair/fairifier
+    ports:
+      - "127.0.0.1:8002:3333"
+    depends_on:
+      - virtuoso
+    restart: unless-stopped
+    volumes:
+      - /data/apps/fairifier/data:/fairifier_data
+      - /data/apps/fairifier/config:/configuration
+
+  fdp:
+    image: dtlfair/fdp
+    ports:
+      - "127.0.0.1:8003:8080"
+    depends_on:
+      - agraph
+    restart: unless-stopped
+  
+  search:
+    image: dtlfair/search
+    ports:
+      - "127.0.0.1:8004:8080"
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+  # dbs
+  agraph:
+    image: franzinc/agraph:v6.1.1
+    ports:
+      - "127.0.0.1:10035:10035"
+    restart: unless-stopped
+
+  virtuoso:
+    image: tenforce/virtuoso
+    ports:
+      - "127.0.0.1:8890:8890"
+    restart: unless-stopped
+
+  elasticsearch:
+    image: elasticsearch:alpine
+    ports:
+      - "127.0.0.1:9200:9200"
+    restart: unless-stopped
