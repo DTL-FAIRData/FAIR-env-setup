@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   editor:
-    image: dtlfair/editor
+    image: dtlfair/metadata-editor:2.1
     container_name: editor
     ports:
       - "127.0.0.1:8001:80"
