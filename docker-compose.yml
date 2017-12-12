@@ -2,6 +2,7 @@ version: "3.4"
 services:
   editor:
     image: dtlfair/editor
+    container_name: editor
     ports:
       - "127.0.0.1:8001:80"
     restart: unless-stopped
@@ -10,6 +11,7 @@ services:
 
   fairifier:
     image: dtlfair/fairifier
+    container_name: fairifier
     ports:
       - "127.0.0.1:8002:3333"
     depends_on:
@@ -21,6 +23,7 @@ services:
 
   fdp:
     image: dtlfair/fdp
+    container_name: fdp
     ports:
       - "127.0.0.1:8003:8080"
     depends_on:
@@ -29,6 +32,7 @@ services:
   
   search:
     image: dtlfair/search
+    container_name: search
     ports:
       - "127.0.0.1:8004:8080"
     depends_on:
@@ -38,12 +42,14 @@ services:
   # dbs
   agraph:
     image: franzinc/agraph:v6.1.1
+    container_name: agraph
     ports:
       - "127.0.0.1:10035:10035"
     restart: unless-stopped
 
   virtuoso:
     image: tenforce/virtuoso
+    container_name: virtuoso
     ports:
       - "127.0.0.1:8890:8890"
     restart: unless-stopped
